@@ -54,9 +54,10 @@ public class Reservation {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Room: " + roomNumber);
-        sb.append("Check in: " + sdf.format(checkIn));
-        sb.append("Check out: " + sdf.format(checkOut));
+        sb.append("Reservation: " + "\n");
+        sb.append("Room: " + roomNumber + "\n");
+        sb.append("Check in: " + sdf.format(checkIn) + "\n");
+        sb.append("Check out: " + sdf.format(checkOut) + "\n");
         sb.append(duration() + " nights");
 
         return sb.toString();

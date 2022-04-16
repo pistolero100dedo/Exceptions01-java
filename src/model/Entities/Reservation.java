@@ -1,5 +1,7 @@
 package model.Entities;
 
+import model.Exceptions.DomainException;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -17,6 +19,9 @@ public class Reservation {
     }
 
     public Reservation(Integer roomNumber, Date checkIn, Date checkOut) {
+        if (!checkOut.after(checkIn)) {
+            throw new DomainException("Error: Check-out date must be after check-in date");
+        }
         this.roomNumber = roomNumber;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
@@ -45,18 +50,18 @@ public class Reservation {
 
     }
 
-    public String updateDates(Date checkIn, Date checkOut) {
+    public void updateDates(Date checkIn, Date checkOut) {
         Date now = new Date();
         if (checkIn.before(now) || checkOut.before(now)) {
-            return "Error: Reservation dates for update must be future dates";
+            throw new DomainException("Error: Reservation dates for update must be future dates");
         }
         if (!checkOut.after(checkIn)) {
-            return "Error: Check-out date must be after check-in date";
+            throw new DomainException("Error: Check-out date must be after check-in date");
         }
         this.checkIn = checkIn;
         this.checkOut = checkOut;
 
-        return null;
+
     }
 
     @Override
